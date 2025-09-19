@@ -71,23 +71,54 @@ attribute:"title"
         <style type="text/css">
 
 /* Aplica al título principal un efecto de fade-in */
-#maintitle {
-  opacity: 0;              /* empieza invisible */
-  animation: titleFadeIn 2s ease-in-out forwards; /* animación de 2s */
+#maintitle-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* tu rotación ya la tienes; si quieres mantener rotate(270deg), ponla en #maintitle */
 }
 
-/* Define la animación */
-@keyframes titleFadeIn {
-  from {
+#maintitle {
+  display: inline-block;
+  /* Asegúrate de mantener esto si ya tienes rotación */
+  transform: rotate(270deg);
+  transform-origin: center center;
+  /* Si quieres, ajusta tamaño, color, etc. */
+  color: #ebc700; /* o el color que uses para el título */
+  font-size: 80px; /* ajusta al que usas */
+  font-family: '1785 GLC Baskerville', serif;
+  /* visibilidad inicial */
+  opacity: 0;
+}
+
+/* Estilos para cada letra */
+#maintitle span.letter {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(2px);
+  transform: translateY(20px);
+}
+
+/* Animación que cada letra hará */
+@keyframes vaporFade {
+  0% {
     opacity: 0;
-    transform: translateY(-20px); /* opcional: que baje un poco desde arriba */
+    transform: translateY(20px);
+    filter: blur(4px);
   }
-  to {
+  50% {
+    opacity: 0.7;
+    transform: translateY(-10px);
+    filter: blur(2px);
+  }
+  100% {
     opacity: 1;
     transform: translateY(0);
+    filter: blur(0px);
   }
-} /* fin del codigo gpt */
-            
+}
+/* fin del codigo gpt */            
 #tumblr_lightbox {
     background-color:rgba(255, 255, 255, .9)!important;
     z-index:99999!important;}
@@ -823,7 +854,36 @@ randomBlurize();
           
       </noscript>
       <script src="https://assets.tumblr.com/client/prod/standalone/tumblelog/index.build.js?_v=9ef08141a4bdf261955692eff737fb5f"></script>
+
+        <script>
+  document.addEventListener("DOMContentLoaded", function(){
+    const titleElem = document.getElementById('maintitle');
+    const text = titleElem.textContent;
+    titleElem.textContent = '';  // vaciar para reemplazar
+
+    // Crear span por cada letra
+    for (let i = 0; i < text.length; i++) {
+      const span = document.createElement('span');
+      span.textContent = text[i];
+      span.classList.add('letter');
+      titleElem.appendChild(span);
+    }
+
+    // Esperar un poco, luego animar contenedor y letras
+    // Primero mostrar el contenedor título
+    titleElem.style.opacity = '1';
+
+    // Animar cada letra con delay distinto
+    const letters = titleElem.querySelectorAll('.letter');
+    letters.forEach((span, idx) => {
+      // tiempo de delay, por ejemplo 0.1s entre cada letra
+      span.style.animation = `vaporFade 2s ease-out forwards`;
+      span.style.animationDelay = `${idx * 0.15}s`; 
+    });
+  });
+</script>
   </body>
 </html>
+
 
 
