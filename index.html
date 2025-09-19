@@ -822,8 +822,49 @@ randomBlurize();
       </noscript>
       <script src="https://assets.tumblr.com/client/prod/standalone/tumblelog/index.build.js?_v=9ef08141a4bdf261955692eff737fb5f"></script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const maintitle = document.getElementById("maintitle");
+  if (!maintitle) return;
+
+  const text = maintitle.textContent.trim();
+  maintitle.textContent = "";
+
+  [...text].forEach((char, i) => {
+    const span = document.createElement("span");
+    span.textContent = char;
+    span.style.opacity = "0";
+    span.style.animation = `vaporGlow 1.5s ease forwards`;
+    span.style.animationDelay = `${i * 0.1}s`;
+    maintitle.appendChild(span);
+  });
+});
+</script>
+
+<style>
+@keyframes vaporGlow {
+  0% {
+    opacity: 0;
+    text-shadow: none;
+  }
+  50% {
+    opacity: 0.7;
+    text-shadow: 0 0 15px #ebc700;
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 7px #ebc700;
+  }
+}
+
+#maintitle span {
+  display: inline-block;
+  /* no rotar aquí, ya que el contenedor está rotado */
+}
+</style>
   </body>
 </html>
+
 
 
 
