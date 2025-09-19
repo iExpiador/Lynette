@@ -67,7 +67,27 @@ attribute:"title"
 });
 });
 })(jQuery);
-</script><style type="text/css">
+</script>
+        <style type="text/css">
+
+/* Aplica al título principal un efecto de fade-in */
+#maintitle {
+  opacity: 0;              /* empieza invisible */
+  animation: titleFadeIn 2s ease-in-out forwards; /* animación de 2s */
+}
+
+/* Define la animación */
+@keyframes titleFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); /* opcional: que baje un poco desde arriba */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} /* fin del codigo gpt */
+            
 #tumblr_lightbox {
     background-color:rgba(255, 255, 255, .9)!important;
     z-index:99999!important;}
@@ -805,4 +825,5 @@ randomBlurize();
       <script src="https://assets.tumblr.com/client/prod/standalone/tumblelog/index.build.js?_v=9ef08141a4bdf261955692eff737fb5f"></script>
   </body>
 </html>
+
 
